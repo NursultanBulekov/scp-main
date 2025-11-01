@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <DashboardLayout>
       <h1 className="text-3xl font-bold mb-6">Catalogs</h1>
-      <p>No catalogs yet.</p>
+      <div className="grid grid-cols-3 gap-4"><div className="rounded bg-gray-800 p-6"><h2>Fresh food</h2><p>3 products</p></div></div>
     </DashboardLayout>
   );
 }
