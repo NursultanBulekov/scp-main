@@ -1,3 +1,22 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function ConversationPage() {
-  return <div className="h-full bg-gray-900 p-4">Conversation messages</div>;
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState(['Hello!', 'Hi, is the order ready?']);
+  const send = () => {
+    if (!message.trim()) return;
+    setMessages([...messages, message]);
+    setMessage('');
+  };
+  return (
+    <div className="flex h-full flex-col bg-gray-900 p-4">
+      <div className="flex-1">{messages.map((item, index) => <p className="mb-2 rounded bg-gray-700 p-2" key={index}>{item}</p>)}</div>
+      <div className="flex">
+        <input className="flex-1 bg-gray-800 p-2" value={message} onChange={e => setMessage(e.target.value)} />
+        <button className="bg-blue-600 p-2" onClick={send}>Send</button>
+      </div>
+    </div>
+  );
 }
