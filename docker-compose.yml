@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:13
+    container_name: scp_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: scp_db
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
