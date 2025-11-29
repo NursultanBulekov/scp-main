@@ -5,9 +5,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: scp_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=scp_db
+    ports:
+      - "5432:5432"
+    networks:
+      - scp_network
+
   backend:
     build: ./backend
     container_name: scp_backend
@@ -20,6 +25,26 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    networks:
+      - scp_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: scp_frontend
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - scp_network
 
 volumes:
   postgres_data:
+
+networks:
+  scp_network:
+    driver: bridge
